@@ -45,11 +45,12 @@ class BanditEnv(gym.Env):
         reward = 0
         done = True
 
-        if np.random.uniform() < self.p_dist[action]:
-            if not isinstance(self.r_dist[action], list):
+        if np.random.uniform() < self.p_dist[action]: # here, p_dist acts as binominal distribution.
+            if not isinstance(self.r_dist[action], list):  
                 reward = self.r_dist[action]
-            else:
+            else: #if r_dist is list, they contain mean and sigma value for normal distribution for reward.
                 reward = np.random.normal(self.r_dist[action][0], self.r_dist[action][1])
+                # TODO add code line beta(power) distribution for reward function.
 
         return 0, reward, done, {}
 
